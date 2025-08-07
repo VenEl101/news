@@ -1,27 +1,21 @@
 from django.db import models
 from django.db.models import Model, CharField, ForeignKey, CASCADE
+from parler.models import TranslatableModel, TranslatedFields
 
 
-
-class Category(Model):
-    name = CharField(max_length=255)
+class Category(TranslatableModel):
+    translations = TranslatedFields(
+        name=models.CharField(max_length=255)
+    )
 
     def __str__(self):
-        return self.name
-
-
-    class Meta:
-        ordering = ['name']
+        return self.safe_translation_getter('name', any_language=True)
 
 
 
-class SubCategory(Model):
-    name = CharField(max_length=255)
+#
+class SubCategory(TranslatableModel):
+    translations = TranslatedFields(
+        name=models.CharField(max_length=255)
+    )
     category = ForeignKey('Category', on_delete=CASCADE, related_name='category')
-
-    def __str__(self):
-        return self.name
-
-
-    class Meta:
-        ordering = ['name']

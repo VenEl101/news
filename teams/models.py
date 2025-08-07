@@ -1,17 +1,17 @@
 from django.db import models
-from django.db.models import CharField, TextField, ImageField, FileField, Model, DateTimeField
+from parler.models import TranslatableModel, TranslatedFields
 
 
+class Teams(TranslatableModel):
+    avatar_img = models.ImageField(null=True, blank=True)
+    exp = models.DateTimeField(auto_now_add=True)
 
-
-class Teams(Model):
-    name = CharField(max_length=255)
-    exp = DateTimeField(auto_now_add=True)
-    position = CharField(max_length=255)
-    avatar_img = ImageField(null=True, blank=True)
-
+    translations = TranslatedFields(
+        name=models.CharField(max_length=255),
+        position=models.CharField(max_length=255),
+    )
 
     def __str__(self):
-        return self.name
+        return self.safe_translation_getter('name', any_language=True)
 
 

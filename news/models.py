@@ -1,19 +1,19 @@
 from django.db import models
-from django.db.models import CharField, TextField, ImageField, FileField, Model
+from parler.models import TranslatableModel, TranslatedFields
 
 
-class News(Model):
-    title = CharField(max_length=255)
-    desc = TextField()
-    image = ImageField(null=True, blank=True)
-    content = TextField()
-    content_img = ImageField(null=True, blank=True)
-    content_video = FileField(null=True, blank=True)
-
+class News(TranslatableModel):
+    translations = TranslatedFields(
+        title=models.CharField(max_length=255),
+        desc=models.TextField(),
+        content=models.TextField(),
+    )
+    image = models.ImageField(null=True, blank=True)
+    content_img = models.ImageField(null=True, blank=True)
+    content_video = models.FileField(null=True, blank=True)
 
     def __str__(self):
-        return self.title
-
+        return self.safe_translation_getter('title', any_language=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ['translations__title']

@@ -1,13 +1,15 @@
 from django.db import models
-from django.db.models import URLField, Model, ImageField, CharField, TextField
+from parler.models import TranslatableModel, TranslatedFields
 
 
-# Create your models here.
-class Portfolio(Model):
-    url_link = URLField()
-    image = ImageField(null=True, blank=True)
-    title = CharField(max_length=255)
-    desc = TextField()
+class Portfolio(TranslatableModel):
+    url_link = models.URLField()
+    image = models.ImageField(null=True, blank=True)
+
+    translations = TranslatedFields(
+        title=models.CharField(max_length=255),
+        desc=models.TextField()
+    )
 
     def __str__(self):
-        return self.title
+        return self.safe_translation_getter('title', any_language=True)

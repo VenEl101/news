@@ -1,11 +1,12 @@
 from django.db import models
-from django.db.models import CharField, ImageField, Model
-# Create your models here.
+from parler.models import TranslatableModel, TranslatedFields
 
 
-class Partners(Model):
-    name = CharField(max_length=255)
-    image = ImageField(null=True, blank=True)
+class Partners(TranslatableModel):
+    translations = TranslatedFields(
+        name=models.CharField(max_length=255)
+    )
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.safe_translation_getter('name', any_language=True)

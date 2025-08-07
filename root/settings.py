@@ -34,12 +34,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'drf_spectacular',
 
-    'parler',
+
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
     'rest_framework',
-    'category',
+    'parler',
+    "rosetta",
     'news',
+    'category',
     'core',
     'partners',
     'users',
@@ -178,14 +180,25 @@ LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = [
     ('en', 'English'),
-    ('ru', 'Russian'),
     ('uz', 'Uzbek'),
+    ('ru', 'Russian'),
 ]
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
-MODELTRANSLATION_LANGUAGES = ('en', 'ru', 'uz')
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'uz'},
+        {'code': 'ru'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 TIME_ZONE = 'UTC'
 

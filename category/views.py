@@ -1,22 +1,16 @@
 from django.shortcuts import render
-from drf_spectacular.utils import extend_schema
+from rest_framework.viewsets import ModelViewSet
 
 from category.models import Category, SubCategory
-from category.serializers import CategoryModelSerializer, SubCategoryModelSerializer
-from core.bases import BaseModelViewSet
+from category.serializers import CategorySerializer, SubCategorySerializer
 
 
-
-@extend_schema(tags=['Categories'])
-class CategoryModelViewSet(BaseModelViewSet):
+class CategoryModelViewSet(ModelViewSet):
     queryset = Category.objects.all()
-    serializer_class = CategoryModelSerializer
+    serializer_class = CategorySerializer
 
 
-@extend_schema(tags=['SubCategories'])
-class SubCategoryModelViewSet(BaseModelViewSet):
+
+class SubCategoryModelViewSet(ModelViewSet):
     queryset = SubCategory.objects.all()
-    serializer_class = SubCategoryModelSerializer
-
-
-
+    serializer_class = SubCategorySerializer

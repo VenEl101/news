@@ -1,10 +1,17 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from parler_rest.serializers import TranslatableModelSerializer
+from parler_rest.fields import TranslatedFieldsField
+from .models import  Teams
 
-from teams.models import Teams
 
 
-class TeamsModelSerializer(ModelSerializer):
+
+
+class TeamsSerializer(TranslatableModelSerializer):
+    class TranslatedFields:
+        name = serializers.CharField()
+        position = serializers.CharField()
+
     class Meta:
         model = Teams
-        fields = ['id', 'name', 'exp', 'position', 'avatar_img']
-
+        fields = ['id', 'avatar_img', 'exp', 'name', 'position']

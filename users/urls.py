@@ -11,4 +11,5 @@ router.register('users', UserModelViewSet, basename='users')
 urlpatterns = [
     path('', include(router.urls)),
     path('login/', UserLoginGenericAPIView.as_view(), name='login'),
+
 ]

@@ -1,10 +1,12 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from parler_rest.serializers import TranslatableModelSerializer
+from .models import Partners
 
-from partners.models import Partners
 
-
-class PartnersModelSerializer(ModelSerializer):
+class PartnersSerializer(TranslatableModelSerializer):
+    class TranslatedFields:
+        name = serializers.CharField()
 
     class Meta:
         model = Partners
-        fields = ['id', 'name', 'image']
+        fields = ['id', 'image', 'name']

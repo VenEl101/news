@@ -8,7 +8,6 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('category.urls')),
     path('api/v1/news/', include('news.urls')),
     path('api/v1/partners/', include('partners.urls')),
     path('api/v1/portfolio/', include('portfolio.urls')),
@@ -21,5 +20,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
+    path("rosetta/", include("rosetta.urls")),
 
 ]+ static(MEDIA_URL, document_root=MEDIA_ROOT) + static(STATIC_URL, document_root=STATIC_ROOT)

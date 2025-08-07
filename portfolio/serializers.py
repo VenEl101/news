@@ -1,9 +1,13 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from parler_rest.serializers import TranslatableModelSerializer
+from parler_rest.fields import TranslatedFieldsField
+from .models import Portfolio
 
-from portfolio.models import Portfolio
 
-
-class PortfolioModelSerializer(ModelSerializer):
+class PortfolioSerializer(TranslatableModelSerializer):
+    class TranslatedFields:
+        title = serializers.CharField()
+        desc = serializers.CharField()
 
     class Meta:
         model = Portfolio
