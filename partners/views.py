@@ -6,13 +6,12 @@ from partners.models import Partners
 from partners.serializers import PartnersSerializer
 
 
-# Create your views here.
-
-
 
 @extend_schema(tags=['Partners'])
 class PartnersModelViewSet(BaseModelViewSet):
     queryset = Partners.objects.all()
     serializer_class = PartnersSerializer
+
+
 
 

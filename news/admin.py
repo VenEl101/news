@@ -19,3 +19,4 @@ class NewsAdmin(TranslatableAdmin):
     image_preview.short_description = 'Preview'
 
 
+
